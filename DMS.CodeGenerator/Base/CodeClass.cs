@@ -1,4 +1,5 @@
 ﻿using DMS.CodeGenerator.Base.Components;
+using DMS.CodeGenerator.Collections;
 using DMS.CodeGenerator.Common;
 using DMS.CodeGenerator.CSharp.Helpers;
 using System;
@@ -17,7 +18,7 @@ namespace DMS.CodeGenerator.Base
 		where TMethod : CodeComponent
 		where TNamespace : CodeNameSpace
 	{
-		private readonly List<TField> _fields = new List<TField>();
+		private readonly ComponentCollection<TField> _fields = new ComponentCollection<TField>();
 
 		internal static TSelf Create(string name, AccessModifier accessModifier)
 		{

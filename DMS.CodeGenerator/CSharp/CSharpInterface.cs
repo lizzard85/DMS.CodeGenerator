@@ -20,7 +20,9 @@ namespace DMS.CodeGenerator.CSharp
 
 		public override string FullName => CSharpStringHelper.FormatNameWithGenericArguments(EntityName, _genericArguments);
 
-		internal override string FileExtension => throw new NotImplementedException();
+		internal override string FileExtension => ".cs";
+
+		public override string UniqueIdentifier => NameSpace?.Render().ToString() + "." + FullName;
 
 		public override void AddMethod(CSharpMethod method)
 		{

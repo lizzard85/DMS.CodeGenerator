@@ -1,5 +1,6 @@
 ﻿using DMS.CodeGenerator.Base;
 using DMS.CodeGenerator.Base.Components;
+using DMS.CodeGenerator.Collections;
 using DMS.CodeGenerator.Common;
 using DMS.CodeGenerator.CSharp.Helpers;
 using System;
@@ -12,14 +13,13 @@ namespace DMS.CodeGenerator.CSharp.Components
 {
 	public class CSharpProperty : CodeProperty
 	{
-		private IList<CSharpGenericArgument> _genericArguments;
+		private ComponentCollection<CSharpGenericArgument> _genericArguments = new ComponentCollection<CSharpGenericArgument>();
 		public CSharpProperty(AccessModifier accessibility, Type type, string name) : this(accessibility, CSharpStringHelper.GetClassName(type), name)
 		{
 
 		}
 		public CSharpProperty(AccessModifier accessibility, string type, string name) : base(accessibility, type, name)
 		{
-			_genericArguments = new List<CSharpGenericArgument>();
 		}
 
 		public override StringBuilder Render()
@@ -117,6 +117,23 @@ namespace DMS.CodeGenerator.CSharp.Components
 			get
 			{
 				return CSharpStringHelper.FormatNameWithGenericArguments(Name, _genericArguments);
+			}
+		}
+
+		public override string UniqueIdentifier
+		{
+			get
+			{
+				StringBuilder sb = new StringBuilder(Name);
+				if (RenderGetter)
+				{
+					sb.Append("_get");
+				}
+				if (RenderSetter)
+				{
+					sb.Append("_set");
+				}
+				return sb.ToString();
 			}
 		}
 	}

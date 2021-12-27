@@ -42,7 +42,7 @@ var prop = new CSharpProperty(AccessModifier.Public, "List<T>", "AllItems");
 prop.AddGenericArguments(new CSharpGenericArgument("T"));
 cls.AddProperty(prop);
 cls.AddMethod(new CSharpAbstractMethod(AccessModifier.Protected, "AbstactTest", "T"));
-
+cls.AddMethod(new CSharpAbstractMethod(AccessModifier.Protected, "AbstactTest", "T"));
 
 inface.NameSpace = cls.NameSpace;
 inface.AddGenericArguments(new CSharpGenericArgument("T"));

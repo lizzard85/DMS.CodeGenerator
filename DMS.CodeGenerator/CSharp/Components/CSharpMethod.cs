@@ -1,5 +1,6 @@
 ﻿using DMS.CodeGenerator.Base;
 using DMS.CodeGenerator.Base.Components;
+using DMS.CodeGenerator.Collections;
 using DMS.CodeGenerator.Common;
 using DMS.CodeGenerator.CSharp.Helpers;
 using System;
@@ -12,10 +13,9 @@ namespace DMS.CodeGenerator.CSharp.Components
 {
 	public class CSharpMethod : CodeMethod<CSharpArgument>
 	{
-		private IList<CSharpGenericArgument> _genericArguments;
+		private ComponentCollection<CSharpGenericArgument> _genericArguments = new ComponentCollection<CSharpGenericArgument>();
 		public CSharpMethod(AccessModifier accessibility, string name, StringBuilder body, params CSharpArgument[] arguments) : base(accessibility, name, body, arguments)
 		{
-			_genericArguments = new List<CSharpGenericArgument>();
 		}
 
 		public CSharpMethod(AccessModifier accessibility, string name, Type returnType, StringBuilder body, params CSharpArgument[] arguments) : this(accessibility, name, CSharpStringHelper.GetClassName(returnType), body, arguments)
@@ -24,7 +24,6 @@ namespace DMS.CodeGenerator.CSharp.Components
 
 		public CSharpMethod(AccessModifier accessibility, string name, string returnType, StringBuilder body, params CSharpArgument[] arguments) : base(accessibility, name, returnType, body, arguments)
 		{
-			_genericArguments = new List<CSharpGenericArgument>();
 		}
 
 		public override StringBuilder Render()
@@ -38,6 +37,10 @@ namespace DMS.CodeGenerator.CSharp.Components
 			if (IsAbstract)
 			{
 				sb.Append("abstract ");
+			}
+			else if (IsOverride)
+			{
+				sb.Append("override ");
 			}
 			sb.Append(ReturnType);
 			sb.Append(' ');
@@ -71,6 +74,25 @@ namespace DMS.CodeGenerator.CSharp.Components
 			get
 			{
 				return CSharpStringHelper.FormatNameWithGenericArguments(Name, _genericArguments);
+			}
+		}
+
+		public override string UniqueIdentifier
+		{
+			get
+			{
+				StringBuilder sb = new StringBuilder(Name);
+				if (_genericArguments.Count > 0)
+				{
+					sb.Append('_');
+					sb.Append(string.Join("_", _genericArguments.Select(a => a.Name)));
+				}
+				if (Arguments.Count > 0)
+				{
+					sb.Append('_');
+					sb.Append(string.Join("_", Arguments.Select(a => a.Type)));
+				}
+				return $"{Name}";
 			}
 		}
 	}

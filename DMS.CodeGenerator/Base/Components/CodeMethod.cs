@@ -1,4 +1,5 @@
-﻿using DMS.CodeGenerator.Common;
+﻿using DMS.CodeGenerator.Collections;
+using DMS.CodeGenerator.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +14,16 @@ namespace DMS.CodeGenerator.Base.Components
 		public string Name { get; }
 		public StringBuilder Body { get; }
 		public string ReturnType { get; }
-		protected IList<TArgument> Arguments { get; }
+		protected ComponentCollection<TArgument> Arguments { get; }
 		public bool IsAbstract { get; set; }
+		public bool IsOverride { get; set; }
 		protected CodeMethod(AccessModifier accessibility, string name, StringBuilder body, params TArgument[] arguments) : this(accessibility, name, "void", body, arguments)
 		{
 		}
 
 		protected CodeMethod(AccessModifier accessibility, string name, string returnType, StringBuilder body, params TArgument[] arguments)
 		{
-			Arguments = new List<TArgument>();
+			Arguments = new ComponentCollection<TArgument>();
 			Accessibility = accessibility;
 			Name = name;
 			Body = body;

@@ -12,5 +12,7 @@ namespace DMS.CodeGenerator.Base
 		public AccessModifier Accessibility { get; set; }
 
 		public abstract StringBuilder Render();
+
+		public abstract string UniqueIdentifier { get; }
 	}
 }

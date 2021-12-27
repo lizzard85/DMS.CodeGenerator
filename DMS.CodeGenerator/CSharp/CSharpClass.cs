@@ -1,4 +1,5 @@
 ﻿using DMS.CodeGenerator.Base;
+using DMS.CodeGenerator.Collections;
 using DMS.CodeGenerator.Common;
 using DMS.CodeGenerator.CSharp.Builders;
 using DMS.CodeGenerator.CSharp.Components;
@@ -25,9 +26,11 @@ namespace DMS.CodeGenerator.CSharp
 			}
 		}
 
+		public override string UniqueIdentifier => NameSpace?.Render().ToString() + "." + FullName;
+
 		public CSharpClass() : base()
 		{
-			_genericArguments = new List<CSharpGenericArgument>();
+			_genericArguments = new ComponentCollection<CSharpGenericArgument>();
 		}
 
 		public void AddConstructor(CSharpConstructor constructor)
@@ -123,7 +126,7 @@ namespace DMS.CodeGenerator.CSharp
 			{
 				foreach (var method in Methods.OrderBy(m => m.Name))
 				{
-					var methodBuilder = method.Render().Replace("[ConstructorNamePlaceholder]", EntityName);
+					var methodBuilder = method.Render().Replace("[Constructor]", EntityName);
 					builder.AppendLinesWithIndentation(methodBuilder.ToString());
 					builder.AppendLine();
 				}

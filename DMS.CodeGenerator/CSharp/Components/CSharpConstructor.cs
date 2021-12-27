@@ -10,7 +10,7 @@ namespace DMS.CodeGenerator.CSharp.Components
 {
 	public class CSharpConstructor : CSharpMethod
 	{
-		public CSharpConstructor(AccessModifier accessibility, StringBuilder body) : base(accessibility, "[ConstructorNamePlaceholder]", body)
+		public CSharpConstructor(AccessModifier accessibility, StringBuilder body) : base(accessibility, "[Constructor]", body)
 		{
 		}
 

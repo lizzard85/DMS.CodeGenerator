@@ -1,4 +1,5 @@
 ﻿using DMS.CodeGenerator.Base.Components;
+using DMS.CodeGenerator.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,8 @@ namespace DMS.CodeGenerator.Base
 		where TMethod : CodeComponent
 		where TNamespace : CodeNameSpace
 	{
-		protected readonly List<TProperty> _properties = new List<TProperty>();
-		protected readonly List<TMethod> _methods = new List<TMethod>();
+		protected readonly ComponentCollection<TProperty> _properties = new ComponentCollection<TProperty>();
+		protected readonly ComponentCollection<TMethod> _methods = new ComponentCollection<TMethod>();
 
 		protected CodeEntity()
 		{
@@ -85,7 +86,7 @@ namespace DMS.CodeGenerator.Base
 		{
 			get
 			{
-				return $"{EntityName}.{FileExtension}";
+				return $"{EntityName}.{FileExtension.Trim('.')}";
 			}
 		}
 

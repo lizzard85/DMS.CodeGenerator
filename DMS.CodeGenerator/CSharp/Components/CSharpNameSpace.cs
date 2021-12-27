@@ -13,6 +13,8 @@ namespace DMS.CodeGenerator.CSharp.Components
 		{
 		}
 
+		public override string UniqueIdentifier => string.Join(Delimiter, NameSpaceParts);
+
 		protected override char Delimiter => '.';
 
 		public override StringBuilder Render()

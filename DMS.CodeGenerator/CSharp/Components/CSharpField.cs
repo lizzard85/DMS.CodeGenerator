@@ -19,6 +19,8 @@ namespace DMS.CodeGenerator.CSharp.Components
 		{
 		}
 
+		public override string UniqueIdentifier => Name;
+
 		public override StringBuilder Render()
 		{
 			StringBuilder sb = new StringBuilder();
