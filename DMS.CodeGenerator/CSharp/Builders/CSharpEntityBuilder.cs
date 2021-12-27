@@ -77,11 +77,12 @@ namespace DMS.CodeGenerator.CSharp.Builders
 			string[] lines = value.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 			foreach (var line in lines)
 			{
-				if (line == "{")
+				var trimmed = line.Trim().TrimStart('\t');
+				if (trimmed == "{")
 				{
 					AppendScopeStart();
 				}
-				else if (line == "}")
+				else if (trimmed == "}")
 				{
 					AppendScopeEnd();
 				}

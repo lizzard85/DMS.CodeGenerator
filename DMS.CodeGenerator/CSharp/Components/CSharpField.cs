@@ -15,7 +15,7 @@ namespace DMS.CodeGenerator.CSharp.Components
 		public CSharpField(AccessModifier accessibility, Type type, string name) : base(accessibility, type, name, null)
 		{
 		}
-		public CSharpField(AccessModifier accessibility, Type type, string name, object? value, string? rawValue = null) : base(accessibility, type, name, value, rawValue)
+		public CSharpField(AccessModifier accessibility, Type type, string name, string? value = null) : base(accessibility, type, name, value)
 		{
 		}
 
@@ -30,15 +30,10 @@ namespace DMS.CodeGenerator.CSharp.Components
 			sb.Append(CSharpStringHelper.GetClassName(DataType));
 			sb.Append(' ');
 			sb.Append(Name);
-			if(!string.IsNullOrWhiteSpace(RawValue))
+			if(!string.IsNullOrWhiteSpace(Value))
 			{
 				sb.Append(" = ");
-				sb.Append(RawValue);
-			}
-			else if(Value != null)
-			{
-				sb.Append(" = ");
-				sb.Append(CSharpStringHelper.FormatVariable(Value));
+				sb.Append(Value);
 			}
 			sb.Append(';');
 			return sb;
@@ -51,7 +46,7 @@ namespace DMS.CodeGenerator.CSharp.Components
 		{
 		}
 
-		public CSharpField(AccessModifier accessibility, string name, T value, string? rawValue = null) : base(accessibility, typeof(T), name, value, rawValue)
+		public CSharpField(AccessModifier accessibility, string name, string? value = null) : base(accessibility, typeof(T), name, value)
 		{
 		}
 	}

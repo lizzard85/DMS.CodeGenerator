@@ -11,16 +11,14 @@ namespace DMS.CodeGenerator.Base.Components
 	{
 		internal protected string Name { get; }
 		internal protected Type DataType { get; }
-		internal protected object? Value { get; }
-		internal protected string? RawValue { get; }
+		internal protected string? Value { get; }
 
-		protected CodeField(AccessModifier accessibility, Type type, string name, object? value, string? rawValue = null)
+		protected CodeField(AccessModifier accessibility, Type type, string name, string? value = null)
 		{
 			Accessibility = accessibility;
 			Name = name;
 			DataType = type;
 			Value = value;
-			RawValue = rawValue;
 		}
 
 	}
