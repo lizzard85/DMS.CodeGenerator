@@ -99,28 +99,34 @@ namespace DMS.CodeGenerator.CSharp
 
 		private void AppendProperties(CSharpEntityBuilder builder)
 		{
-			foreach (var prop in Properties.OrderBy(p => p.Name))
+			if (Properties != null && Properties.Count > 0)
 			{
-				builder.AppendLinesWithIndentation(prop.Render().ToString());
-				if (prop.BackingField != null)
+				foreach (var prop in Properties.OrderBy(p => p.Name))
+				{
+					builder.AppendLinesWithIndentation(prop.Render().ToString());
+					if (prop.BackingField != null)
+					{
+						builder.AppendLine();
+					}
+				}
+
+				if (Properties.Last().BackingField == null)
 				{
 					builder.AppendLine();
 				}
-			}
-			
-			if(Properties.Last().BackingField == null)
-			{
-				builder.AppendLine();
 			}
 		}
 
 		private void AppendMethods(CSharpEntityBuilder builder)
 		{
-			foreach (var method in Methods.OrderBy(m => m.Name))
+			if (Methods != null && Methods.Count > 0)
 			{
-				var methodBuilder = method.Render().Replace("[ConstructorNamePlaceholder]", EntityName);
-				builder.AppendLinesWithIndentation(methodBuilder.ToString());
-				builder.AppendLine();
+				foreach (var method in Methods.OrderBy(m => m.Name))
+				{
+					var methodBuilder = method.Render().Replace("[ConstructorNamePlaceholder]", EntityName);
+					builder.AppendLinesWithIndentation(methodBuilder.ToString());
+					builder.AppendLine();
+				}
 			}
 		}
 
