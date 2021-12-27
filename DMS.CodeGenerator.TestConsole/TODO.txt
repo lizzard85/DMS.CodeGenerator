@@ -1,0 +1,7 @@
+﻿ - Interface implementation
+  - Angivelse på klassen
+  - Automatisk generering af metoder via en InterfaceImplementation
+  - Generering af Interface
+  - Implementation af virtual
+ - Implementation af "where" på generics
+ - Nedarvning på interfaces
