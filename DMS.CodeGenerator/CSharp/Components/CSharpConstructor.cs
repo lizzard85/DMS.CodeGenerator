@@ -14,6 +14,8 @@ namespace DMS.CodeGenerator.CSharp.Components
 		{
 		}
 
+		public string? BaseCallArguments { get; set; }
+
 		public override StringBuilder Render()
 		{
 			StringBuilder sb = new StringBuilder();
@@ -28,7 +30,12 @@ namespace DMS.CodeGenerator.CSharp.Components
 			{
 				sb.Append(string.Join(", ", Arguments.Select(a => a.Render())));
 			}
-			sb.AppendLine(")");
+			sb.Append(")");
+			if(!string.IsNullOrWhiteSpace(BaseCallArguments))
+			{
+				sb.Append($" : base({BaseCallArguments}) ");
+			}
+			sb.AppendLine();
 			sb.AppendLine("{");
 			sb.Append(Body);
 			sb.AppendLine();
