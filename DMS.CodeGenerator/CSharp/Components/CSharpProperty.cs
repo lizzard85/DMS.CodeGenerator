@@ -97,11 +97,20 @@ namespace DMS.CodeGenerator.CSharp.Components
 
 		private string GetSetter()
 		{
+			StringBuilder builder = new StringBuilder();
 			if (SetterAccessibility != AccessModifier.Undefined)
 			{
-				return $"{CSharpStringHelper.GetAccessModifier(SetterAccessibility)} set";
+				builder.Append($"{CSharpStringHelper.GetAccessModifier(SetterAccessibility)} ");
 			}
-			return "set";
+			if (UseInitSetter)
+			{
+				builder.Append("init");
+			}
+			else
+			{
+				builder.Append("set");
+			}
+			return builder.ToString();
 		}
 
 		public void AddGenericArguments(params CSharpGenericArgument[] args)
@@ -136,5 +145,7 @@ namespace DMS.CodeGenerator.CSharp.Components
 				return sb.ToString();
 			}
 		}
+
+		public bool UseInitSetter { get; set; }
 	}
 }

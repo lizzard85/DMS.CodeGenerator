@@ -17,10 +17,10 @@ cls.AddReferences(
 	new CSharpNameSpace("System.Linq"));
 cls.Implements("ICollection<T>", "IReadOnlyCollection<T>");
 
-cls.AddGenericArguments(new CSharpGenericArgument("T"));
+cls.AddGenericArguments(new CSharpGenericArgument("T", "struct"));
 cls.Extends("List<T>");
 
-cls.AddConstructor(new CSharpConstructor(AccessModifier.Public, new StringBuilder()));
+cls.AddConstructor(new CSharpConstructor(AccessModifier.Public, new StringBuilder("var foo = 42;"), new CSharpArgument("int", "id")));
 
 var addMethodBody = new StringBuilder();
 addMethodBody.AppendLine("Add(item);");
@@ -39,6 +39,7 @@ castMethod.AddGenericArguments(new CSharpGenericArgument("TCast"));
 cls.AddMethod(castMethod);
 
 var prop = new CSharpProperty(AccessModifier.Public, "List<T>", "AllItems");
+prop.UseInitSetter = true;
 prop.AddGenericArguments(new CSharpGenericArgument("T"));
 cls.AddProperty(prop);
 cls.AddMethod(new CSharpAbstractMethod(AccessModifier.Protected, "AbstactTest", "T"));

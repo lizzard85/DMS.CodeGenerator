@@ -66,6 +66,10 @@ namespace DMS.CodeGenerator.CSharp.Builders
 			}
 		}
 
+		internal void AppendLineWithIndentation(StringBuilder value)
+		{
+			AppendLineWithIndentation(value.ToString());
+		}
 		internal void AppendLineWithIndentation(string value)
 		{
 			string indentation = string.Join("", Enumerable.Range(0, _scopesStarted).Select(x => '\t'));

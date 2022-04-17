@@ -89,6 +89,13 @@ namespace DMS.CodeGenerator.CSharp
 				cb.Append(string.Join(", ", ImplementsEntities));
 			}
 			builder.AppendLineWithIndentation(cb.ToString());
+			foreach (var ga in _genericArguments)
+			{
+				if(ga.HasConstraint)
+				{
+					builder.AppendLineWithIndentation(ga.RenderConstraint());
+				}
+			}
 			builder.AppendScopeStart();
 		}
 

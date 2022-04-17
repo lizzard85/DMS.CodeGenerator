@@ -10,7 +10,7 @@ namespace DMS.CodeGenerator.CSharp.Components
 {
 	public class CSharpConstructor : CSharpMethod
 	{
-		public CSharpConstructor(AccessModifier accessibility, StringBuilder body) : base(accessibility, "[Constructor]", body)
+		public CSharpConstructor(AccessModifier accessibility, StringBuilder body, params CSharpArgument[] arguments) : base(accessibility, "[Constructor]", body, arguments)
 		{
 		}
 
@@ -23,9 +23,15 @@ namespace DMS.CodeGenerator.CSharp.Components
 				sb.Append(' ');
 			}
 			sb.Append(Name);
-			sb.AppendLine("()");
+			sb.Append("(");
+			if (Arguments.Count > 0)
+			{
+				sb.Append(string.Join(", ", Arguments.Select(a => a.Render())));
+			}
+			sb.AppendLine(")");
 			sb.AppendLine("{");
 			sb.Append(Body);
+			sb.AppendLine();
 			sb.AppendLine("}");
 			return sb;
 		}
