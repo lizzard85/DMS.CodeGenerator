@@ -1,5 +1,5 @@
 ﻿using DMS.CodeGenerator.Base;
-using DMS.CodeGenerator.Esceptions;
+using DMS.CodeGenerator.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

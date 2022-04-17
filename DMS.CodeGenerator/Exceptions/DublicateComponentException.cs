@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DMS.CodeGenerator.Esceptions
+namespace DMS.CodeGenerator.Exceptions
 {
 	public class DublicateComponentException : Exception
 	{
