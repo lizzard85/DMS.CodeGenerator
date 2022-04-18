@@ -1,13 +1,8 @@
-﻿using DMS.CodeGenerator.Base;
-using DMS.CodeGenerator.Base.Components;
+﻿using DMS.CodeGenerator.Base.Components;
 using DMS.CodeGenerator.Collections;
 using DMS.CodeGenerator.Common;
 using DMS.CodeGenerator.CSharp.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace DMS.CodeGenerator.CSharp.Components
 {
@@ -47,6 +42,13 @@ namespace DMS.CodeGenerator.CSharp.Components
 
 			sb.Append(FullName);
 			sb.Append($"({GetRenderedArguments()})");
+
+			var genericConstraints = string.Join(" ", _genericArguments.Where(ga => ga.HasConstraint).Select(ga => $"where {ga.Name} : {ga.Constraint}")).Trim();
+			if (!string.IsNullOrEmpty(genericConstraints))
+			{
+				sb.Append(" ").Append(genericConstraints);
+			}
+
 			if (!IsAbstract)
 			{
 				sb.AppendLine();
