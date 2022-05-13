@@ -1,13 +1,8 @@
-﻿using DMS.CodeGenerator.Base;
-using DMS.CodeGenerator.Base.Components;
+﻿using DMS.CodeGenerator.Base.Components;
 using DMS.CodeGenerator.Collections;
 using DMS.CodeGenerator.Common;
 using DMS.CodeGenerator.CSharp.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace DMS.CodeGenerator.CSharp.Components
 {
@@ -48,14 +43,28 @@ namespace DMS.CodeGenerator.CSharp.Components
 					{
 						sb.AppendLine(GetGetter());
 						sb.AppendLine("{");
-						sb.AppendLine($"return {BackingField.Name};");
+						if (GetBody != null)
+						{
+							sb.AppendLine(GetBody.ToString());
+						}
+						else
+						{
+							sb.AppendLine($"return {BackingField.Name};");
+						}
 						sb.AppendLine("}");
 					}
 					if (RenderSetter)
 					{
 						sb.AppendLine(GetSetter());
 						sb.AppendLine("{");
-						sb.AppendLine($"{BackingField.Name} = value;");
+						if (SetBody != null)
+						{
+							sb.AppendLine(SetBody.ToString());
+						}
+						else
+						{
+							sb.AppendLine($"{BackingField.Name} = value;");
+						}
 						sb.AppendLine("}");
 					}
 					sb.AppendLine("}");
@@ -88,7 +97,7 @@ namespace DMS.CodeGenerator.CSharp.Components
 
 		private string GetGetter()
 		{
-			if (GetterAccessibility != AccessModifier.Undefined)
+			if (GetterAccessibility != AccessModifier.Undefined && GetterAccessibility != Accessibility)
 			{
 				return $"{CSharpStringHelper.GetAccessModifier(GetterAccessibility)} get";
 			}
@@ -98,7 +107,7 @@ namespace DMS.CodeGenerator.CSharp.Components
 		private string GetSetter()
 		{
 			StringBuilder builder = new StringBuilder();
-			if (SetterAccessibility != AccessModifier.Undefined)
+			if (SetterAccessibility != AccessModifier.Undefined && SetterAccessibility != Accessibility)
 			{
 				builder.Append($"{CSharpStringHelper.GetAccessModifier(SetterAccessibility)} ");
 			}

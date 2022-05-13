@@ -1,9 +1,5 @@
 ﻿using DMS.CodeGenerator.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace DMS.CodeGenerator.Base.Components
 {
@@ -13,6 +9,8 @@ namespace DMS.CodeGenerator.Base.Components
 		public string Name { get; }
 		public string ReturnType { get; }
 		public CodeField? BackingField { get; set; }
+		public StringBuilder? GetBody { get; set; }
+		public StringBuilder? SetBody { get; set; }
 
 		protected CodeProperty(AccessModifier accessibility, string returnType, string name)
 		{
